@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:reminder_app/components/searchfield.dart';
 import 'package:reminder_app/screens/all_items.dart';
 import 'package:reminder_app/screens/expired.dart';
 import 'package:reminder_app/screens/profile.dart';
@@ -33,15 +35,15 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 30, left: 15),
-                    child: Text("User Name",
+                    padding: EdgeInsets.only(top: 30, left: 10),
+                    child: Text("Osama Ebrahim Lotfy",
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 18,
                           color: Colors.blueGrey,
                         )),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 30, left: 120),
+                    padding: EdgeInsets.only(top: 30, left: 60),
                     child: Icon(Icons.person, color: Colors.grey, size: 35),
                   ),
                 ],
@@ -49,20 +51,7 @@ class HomePage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(12),
-              child: TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Search',
-                  hintText: 'Search.....',
-                  prefixIcon: const Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(color: Color(0xFF5DADEC)),
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                ),
-              ),
+              child: SearchField(),
             ),
             // ignore: prefer_const_constructors
             Padding(
@@ -238,6 +227,33 @@ class HomePage extends StatelessWidget {
             )
           ],
         ),
+      ),
+      bottomNavigationBar: const GNav(
+        gap: 5,
+        tabBackgroundColor: Color(0xFF5dadec),
+        padding: EdgeInsets.all(14),
+        tabs: [
+          GButton(
+            icon: Icons.home,
+            iconSize: 20,
+            text: "Home",
+          ),
+          GButton(
+            icon: Icons.calendar_month,
+            text: "Calender",
+            iconSize: 20,
+          ),
+          GButton(
+            icon: Icons.add_circle,
+            text: "Add Item",
+            iconSize: 20,
+          ),
+          GButton(
+            icon: Icons.settings,
+            text: "Settings",
+            iconSize: 20,
+          ),
+        ],
       ),
     );
   }

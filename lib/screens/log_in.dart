@@ -58,6 +58,9 @@ class LogIn extends StatelessWidget {
                     return "Can't Be Empty";
                   }
                 },
+                isDense: true,
+                obscureText: true,
+                suffixIcon: true,
                 myicon: Icon(Icons.lock, color: Color(0xFF5dadec)),
               ),
             ),

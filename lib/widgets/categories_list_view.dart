@@ -17,7 +17,7 @@ class categoris_list_view extends StatelessWidget {
       categoryPrecent: "15%",
     ),
     CategoryModel(
-      categoryName: "Drinks",
+      categoryName: "syrup",
       categoryPrecent: "30%",
     ),
     CategoryModel(

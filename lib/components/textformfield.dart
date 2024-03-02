@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
-class CustomTextForm extends StatelessWidget {
+class CustomTextForm extends StatefulWidget {
   final String hinttext;
   final TextEditingController mycontroller;
   final String label;
   final Icon myicon;
   final String? Function(String?)? validator;
+  final bool? isDense;
+  final bool obscureText;
+  final bool suffixIcon;
 
   const CustomTextForm(
       {super.key,
@@ -13,17 +16,43 @@ class CustomTextForm extends StatelessWidget {
       required this.mycontroller,
       required this.label,
       required this.myicon,
-      this.validator});
+      this.validator, this.isDense, this.obscureText=false,  this.suffixIcon=false});
 
+  @override
+  State<CustomTextForm> createState() => _CustomTextFormState();
+}
+
+class _CustomTextFormState extends State<CustomTextForm> {
+  bool _obscureText = true;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator: validator,
-      controller: mycontroller,
+      obscureText: (widget.obscureText && _obscureText),
+      validator: widget.validator,
+      controller: widget.mycontroller,
       decoration: InputDecoration(
-        labelText: label,
-        hintText: hinttext,
-        prefixIcon: myicon,
+        labelText: widget.label,
+        hintText: widget.hinttext,
+        isDense: (widget.isDense != null) ? widget.isDense : false,
+        prefixIcon: widget.myicon,
+        suffixIcon: widget.suffixIcon
+                  ? IconButton(
+                      icon: Icon(
+                        _obscureText
+                            ? Icons.remove_red_eye
+                            : Icons.visibility_off_outlined,
+                        color: Colors.black54,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscureText = !_obscureText;
+                        });
+                      },
+                    )
+                  : null,
+        suffixIconConstraints: (widget.isDense != null)
+                  ? const BoxConstraints(maxHeight: 33)
+                  : null,
         hintStyle: const TextStyle(fontSize: 20),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
