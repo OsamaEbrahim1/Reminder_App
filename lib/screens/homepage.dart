@@ -25,16 +25,16 @@ class HomePage extends StatelessWidget {
                   return const PersonalProfile();
                 }));
               },
-              child: const Row(
+              child:  Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: 30, left: 15, right: 3),
+                    padding: const EdgeInsets.only(top: 30, left: 15, right: 3),
                     child: CircleAvatar(
                       radius: 30,
-                      backgroundColor: Color(0xFF5DADEC),
+                      child: Image.asset("images/avatar.png"),
                     ),
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.only(top: 30, left: 10),
                     child: Text("Osama Ebrahim Lotfy",
                         style: TextStyle(
@@ -42,21 +42,21 @@ class HomePage extends StatelessWidget {
                           color: Colors.blueGrey,
                         )),
                   ),
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.only(top: 30, left: 60),
                     child: Icon(Icons.person, color: Colors.grey, size: 35),
                   ),
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(12),
+            const Padding(
+              padding: EdgeInsets.all(12),
               child: SearchField(),
             ),
             // ignore: prefer_const_constructors
             Padding(
               padding: const EdgeInsets.only(right: 250),
-              child: Text("Recent",
+              child: const Text("Recent",
                   style: TextStyle(
                       fontSize: 25,
                       color: Colors.black,
@@ -66,130 +66,90 @@ class HomePage extends StatelessWidget {
               padding: EdgeInsets.all(8.0),
               child: categoris_list_view(),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 12, bottom: 2),
-              child: GestureDetector(
+const SizedBox(height: 10,),
+
+            Container(
+              height: 50,
+              width: 340,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: const Color(0xFF5DADEC), width: 1.5),
+              ),
+              child: ListTile(
+                title: const Text(
+                  "All Items",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                leading: const Icon(
+                  Icons.list,
+                  color: Color(0xFF5DADEC),
+                  size: 25,
+                ),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 25),
                 onTap: () {
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (context) {
                     return const AllItems();
                   }));
                 },
-                child: Container(
-                  height: 50,
-                  width: 340,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    border:
-                        Border.all(color: const Color(0xFF5DADEC), width: 1.5),
-                  ),
-                  child: const Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Icon(Icons.list,
-                            size: 30, color: Color(0xFF5dadec)),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 3),
-                        child: Text("All Items",
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold)),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 180),
-                        child: Icon(Icons.arrow_forward_ios,
-                            size: 23, color: Colors.black),
-                      ),
-                    ],
-                  ),
-                ),
               ),
             ),
-            Padding(
-                padding: const EdgeInsets.only(top: 2, bottom: 2),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return const SoonToExpire();
-                    }));
-                  },
-                  child: Container(
-                    height: 50,
-                    width: 340,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(
-                          color: const Color(0xFF5DADEC), width: 1.5),
-                    ),
-                    child: const Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(7.0),
-                          child: Icon(Icons.timelapse,
-                              size: 30, color: Color(0xFF5dadec)),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 3),
-                          child: Text("Soon To Expire",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold)),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 130),
-                          child: Icon(Icons.arrow_forward_ios,
-                              size: 23, color: Colors.black),
-                        ),
-                      ],
-                    ),
-                  ),
-                )),
-            Padding(
-                padding: const EdgeInsets.only(top: 2, bottom: 2),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return const Expired();
-                    }));
-                  },
-                  child: Container(
-                    height: 50,
-                    width: 340,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(
-                          color: const Color(0xFF5DADEC), width: 1.5),
-                    ),
-                    child: const Row(
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Icon(Icons.format_indent_increase_sharp,
-                              size: 30, color: Color(0xFF5DADEC)),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 3),
-                          child: Text("Expired",
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold)),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 195),
-                          child: Icon(Icons.arrow_forward_ios,
-                              size: 23, color: Colors.black),
-                        ),
-                      ],
-                    ),
-                  ),
-                )),
+const SizedBox(height: 10,),
+
+            Container(
+              height: 50,
+              width: 340,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: const Color(0xFF5DADEC), width: 1.5),
+              ),
+              child: ListTile(
+                title: const Text(
+                  "Soon To Expired",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                leading: const Icon(
+                  Icons.timelapse,
+                  color: Color(0xFF5DADEC),
+                  size: 25,
+                ),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 25),
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return const SoonToExpire();
+                  }));
+                },
+              ),
+            ),
+const SizedBox(height: 10,),
+
+            Container(
+              height: 50,
+              width: 340,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: const Color(0xFF5DADEC), width: 1.5),
+              ),
+              child: ListTile(
+                title: const Text(
+                  "Expired",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                leading: const Icon(
+                  Icons.format_indent_increase,
+                  color: Color(0xFF5DADEC),
+                  size: 25,
+                ),
+                trailing: const Icon(Icons.arrow_forward_ios, size: 25),
+                onTap: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) {
+                    return const Expired();
+                  }));
+                },
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 8),
               child: Row(

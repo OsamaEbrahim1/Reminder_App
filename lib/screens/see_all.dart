@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:reminder_app/widgets/noti2_list_view.dart';
+import 'package:reminder_app/widgets/noti_list_view.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class SeeAll extends StatelessWidget {
   const SeeAll({super.key});
@@ -18,6 +21,7 @@ class SeeAll extends StatelessWidget {
         ),
         leading: BackButton(color: Color(0xFF5DADEC)),
       ),
+      body: Column(children: [noti2_list_view()]),
     );
   }
 }

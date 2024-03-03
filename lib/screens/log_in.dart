@@ -88,11 +88,7 @@ class LogIn extends StatelessWidget {
                 child: CustomButton(
                   title: "Login",
                   onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) {
-                        return HomePage();
-                      }),
-                    );
+                    Navigator.pushNamed(context, 'HomePage');
                   },
                 ),),
 

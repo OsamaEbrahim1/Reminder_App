@@ -9,103 +9,53 @@ class PersonalProfile extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text("Profile",
+        title: const Text("Profile",
             style: TextStyle(
               fontSize: 25,
               color: Colors.black,
             )),
         leading: const BackButton(color: Color(0xFF5DADEC)),
       ),
-      body: const Column(
+      body: ListView(
         children: [
-          Center(
-            child: CircleAvatar(
-              radius: 70,
-              backgroundColor: Color(0xFF5DADEC),
-            ),
+          Column(children: [
+            const SizedBox(height: 16),
+          //! Profile Picture
+          CircleAvatar(
+            radius: 80,
+            child: Image.asset("images/avatar.png"),
           ),
-          Padding(
-            padding: EdgeInsets.all(5),
-            child: Center(
-              child: Text("User Name",
-                  style: TextStyle(
-                    fontSize: 35,
-                    color: Colors.blueGrey,
-                  )),
-            ),
+          const SizedBox(height: 16),
+
+          //! Name
+          const ListTile(
+            title: Text("User Name"),
+            leading: Icon(Icons.person,color: Color(0xFF5DADEC),size: 25,),
+            trailing:Icon(Icons.edit, color: Color(0xFF5DADEC), size: 25), 
           ),
-          Padding(
-            padding: EdgeInsets.only(top: 2, bottom: 20),
-            child: Center(
-              child: Text("User Name123@gmail.com",
-                  style: TextStyle(
-                    fontSize: 10,
-                    color: Colors.black,
-                  )),
-            ),
+          
+          const SizedBox(height: 16),
+
+          //! Email
+          const ListTile(
+            title: Text("Email"),
+            leading: Icon(Icons.email,color: Color(0xFF5DADEC),size: 25,),
+            trailing:Icon(Icons.edit, color: Color(0xFF5DADEC), size: 25),
           ),
-          Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(2),
-                child: Icon(Icons.person, color: Color(0xFF5DADEC), size: 30),
-              ),
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: Text("User Name",
-                    style: TextStyle(
-                      fontSize: 25,
-                      color: Colors.black,
-                    )),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 140),
-                child: Icon(Icons.edit, color: Color(0xFF5DADEC), size: 25),
-              ),
-            ],
+          const SizedBox(height: 16),
+
+          //! Phone number
+          const ListTile(
+            title: Text("password"),
+            leading: Icon(Icons.lock,color: Color(0xFF5DADEC),size: 25,),
+            trailing:Icon(Icons.edit, color: Color(0xFF5DADEC), size: 25),
           ),
-          Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(2),
-                child: Icon(Icons.email, color: Color(0xFF5DADEC), size: 30),
-              ),
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: Text("Email",
-                    style: TextStyle(
-                      fontSize: 25,
-                      color: Colors.black,
-                    )),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 200),
-                child: Icon(Icons.edit, color: Color(0xFF5DADEC), size: 25),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(2),
-                child: Icon(Icons.password, color: Color(0xFF5DADEC), size: 30),
-              ),
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: Text("Password",
-                    style: TextStyle(
-                      fontSize: 25,
-                      color: Colors.black,
-                    )),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 153),
-                child: Icon(Icons.edit, color: Color(0xFF5DADEC), size: 25),
-              ),
-            ],
-          )
+          const SizedBox(height: 16),
+
+          ],),
+          
         ],
       ),
     );
   }
-}
+} 

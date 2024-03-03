@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reminder_app/screens/homepage.dart';
 import 'package:reminder_app/views/home_view.dart';
 
 void main() {
@@ -10,9 +11,12 @@ class ReminderApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return  MaterialApp(
       debugShowCheckedModeBanner: false,
       home: HomeView(),
+      routes: {
+        'HomePage'  : (context) => const HomePage(),  
+      },
     );
   }
 }

@@ -19,23 +19,31 @@ class AllItems extends StatelessWidget {
         centerTitle: true,
         leading: BackButton(color: Color(0xFF5DADEC)),
       ),
-      body: Column(
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(12),
-            child: SearchField(),
-          ),
-          SingleChildScrollView(
+      body: CustomScrollView(
+        slivers: [
+          SliverToBoxAdapter(
             child: Column(
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(12),
+              child: SearchField(),
+            ),
+            Column(
               children: [
+                CustomContainer(title: "", cType: "cType", pdate: '29/9/2002', exdate: "10/11/2002"),
+                CustomContainer(title: "", cType: "cType", pdate: '29/9/2002', exdate: "10/11/2002"),
+                CustomContainer(title: "", cType: "cType", pdate: '29/9/2002', exdate: "10/11/2002"),
                 CustomContainer(title: "", cType: "cType", pdate: '29/9/2002', exdate: "10/11/2002"),
                 CustomContainer(title: "", cType: "cType", pdate: '29/9/2002', exdate: "10/11/2002"),
                 CustomContainer(title: "", cType: "cType", pdate: '29/9/2002', exdate: "10/11/2002"),
                 
               ],
             ),
-          ),
+          ],
+        ),
+          )
         ],
+        
       ),
     );
   }
