@@ -32,6 +32,7 @@ class PersonalProfile extends StatelessWidget {
             title: Text("User Name"),
             leading: Icon(Icons.person,color: Color(0xFF5DADEC),size: 25,),
             trailing:Icon(Icons.edit, color: Color(0xFF5DADEC), size: 25), 
+            
           ),
           
           const SizedBox(height: 16),

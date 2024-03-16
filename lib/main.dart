@@ -15,7 +15,7 @@ class ReminderApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: HomeView(),
       routes: {
-        'HomePage'  : (context) => const HomePage(),  
+        'HomePage'  : (context) =>  HomePage(),  
       },
     );
   }

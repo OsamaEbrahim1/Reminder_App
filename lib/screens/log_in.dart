@@ -84,13 +84,14 @@ class LogIn extends StatelessWidget {
 
             //button
             Padding(
-                padding: const EdgeInsets.all(18),
-                child: CustomButton(
-                  title: "Login",
-                  onPressed: () {
-                    Navigator.pushNamed(context, 'HomePage');
-                  },
-                ),),
+              padding: const EdgeInsets.all(18),
+              child: CustomButton(
+                title: "Login",
+                onPressed: () {
+                  Navigator.pushNamed(context, 'HomePage');
+                },
+              ),
+            ),
 
             //divider
             const Row(
