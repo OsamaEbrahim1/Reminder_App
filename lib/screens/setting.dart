@@ -3,6 +3,7 @@ import 'package:reminder_app/components/searchfield.dart';
 import 'package:reminder_app/screens/add_item.dart';
 import 'package:reminder_app/screens/calender.dart';
 import 'package:reminder_app/screens/homepage.dart';
+import 'package:reminder_app/screens/log_in.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -29,16 +30,16 @@ class _SettingsState extends State<Settings> {
           leading: const BackButton(color: Color(0xFF5DADEC)),
         ),
         body: ListView(
-          children: const [
+          children:  [
             Column(
               children: [
-                SizedBox(height: 6),
-                Padding(
+                const SizedBox(height: 6),
+                const Padding(
                   padding: EdgeInsets.all(16),
                   child: SearchField(),
                 ),
-                SizedBox(height: 1),
-                ListTile(
+                const SizedBox(height: 1),
+                const ListTile(
                   title: Text(
                     "Profile",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -51,8 +52,8 @@ class _SettingsState extends State<Settings> {
                   trailing: Icon(Icons.arrow_forward_ios,
                       color: Colors.black, size: 20),
                 ),
-                SizedBox(height: 1),
-                ListTile(
+                const SizedBox(height: 1),
+                const ListTile(
                   title: Text(
                     "Notifications",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -65,8 +66,8 @@ class _SettingsState extends State<Settings> {
                   trailing: Icon(Icons.arrow_forward_ios,
                       color: Colors.black, size: 20),
                 ),
-                SizedBox(height: 1),
-                ListTile(
+                const SizedBox(height: 1),
+                const ListTile(
                   title: Text(
                     "Privacy",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -79,8 +80,8 @@ class _SettingsState extends State<Settings> {
                   trailing: Icon(Icons.arrow_forward_ios,
                       color: Colors.black, size: 20),
                 ),
-                SizedBox(height: 1),
-                ListTile(
+                const SizedBox(height: 1),
+                const ListTile(
                   title: Text(
                     "Security",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -93,8 +94,8 @@ class _SettingsState extends State<Settings> {
                   trailing: Icon(Icons.arrow_forward_ios,
                       color: Colors.black, size: 20),
                 ),
-                SizedBox(height: 1),
-                ListTile(
+                const SizedBox(height: 1),
+                const ListTile(
                   title: Text(
                     "About",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -107,8 +108,8 @@ class _SettingsState extends State<Settings> {
                   trailing: Icon(Icons.arrow_forward_ios,
                       color: Colors.black, size: 20),
                 ),
-                SizedBox(height: 1),
-                ListTile(
+                const SizedBox(height: 1),
+                const ListTile(
                   title: Text(
                     "Help",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -121,15 +122,23 @@ class _SettingsState extends State<Settings> {
                   trailing: Icon(Icons.arrow_forward_ios,
                       color: Colors.black, size: 20),
                 ),
-                SizedBox(height: 1),
+                const SizedBox(height: 1),
                 Padding(
-                  padding: EdgeInsets.only(right: 250, top: 20),
-                  child: Text(
-                    "Log out",
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: Color(0xFF5DADEC),
-                        fontWeight: FontWeight.bold),
+                  padding: const EdgeInsets.only(right: 250, top: 20),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return LogIn();
+                }));
+                    },
+                    child: const Text(
+                      "Log out",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Color(0xFF5DADEC),
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                 )
               ],
@@ -143,22 +152,22 @@ class _SettingsState extends State<Settings> {
               if (index == 0) {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return HomePage();
+                  return const HomePage();
                 }));
               } else if (index == 1) {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return Calender();
+                  return const Calender();
                 }));
               } else if (index == 2) {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return Add();
+                  return const Add();
                 }));
               } else if (index == 3) {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
-                  return Settings();
+                  return const Settings();
                 }));
               }
             });
@@ -166,22 +175,22 @@ class _SettingsState extends State<Settings> {
           currentIndex: 3,
           unselectedFontSize: 15,
           unselectedItemColor: Colors.grey,
-          selectedItemColor: Color(0xFF5dadec),
-          selectedLabelStyle: TextStyle(fontSize: 13),
+          selectedItemColor: const Color(0xFF5dadec),
+          selectedLabelStyle: const TextStyle(fontSize: 13),
           items: [
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 label: "Home",
                 backgroundColor: Color.fromARGB(255, 230, 230, 230)),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
                 icon: Icon(Icons.calendar_month),
                 label: "Calender",
                 backgroundColor: Color.fromARGB(255, 230, 230, 230)),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
                 icon: Icon(Icons.add),
                 label: "Add",
                 backgroundColor: Color.fromARGB(255, 230, 230, 230)),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
                 label: "Settings",
                 backgroundColor: Color.fromARGB(255, 230, 230, 230)),

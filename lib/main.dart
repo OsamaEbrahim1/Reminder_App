@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:reminder_app/cubit/user_cubit.dart';
 import 'package:reminder_app/screens/homepage.dart';
 import 'package:reminder_app/views/home_view.dart';
 
 void main() {
-  runApp(const ReminderApp());
+  runApp(
+    BlocProvider(
+      create: (context) => UserCubit(),
+      child: const ReminderApp(),
+    ),
+    );
 }
 
 class ReminderApp extends StatelessWidget {
