@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 
-import 'package:reminder_app/api/api_consumer.dart';
-import 'package:reminder_app/api/api_interceptors.dart';
-import 'package:reminder_app/api/end_points.dart';
-import 'package:reminder_app/errors/exceptions.dart';
+import 'package:reminder_app/core/api/api_consumer.dart';
+import 'package:reminder_app/core/api/api_interceptors.dart';
+import 'package:reminder_app/core/api/end_points.dart';
+import 'package:reminder_app/core/errors/exceptions.dart';
 
 class DioConsumer extends ApiConsumer {
   final Dio dio;

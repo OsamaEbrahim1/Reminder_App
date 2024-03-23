@@ -1,5 +1,5 @@
 
-import 'package:reminder_app/api/end_points.dart';
+import 'package:reminder_app/core/api/end_points.dart';
 
 class ErrorModel {
   final  int status;

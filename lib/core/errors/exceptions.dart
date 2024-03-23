@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:reminder_app/errors/error_model.dart';
+import 'package:reminder_app/core/errors/error_model.dart';
 
 class ServerException implements Exception{
   final ErrorModel errmodel;
@@ -11,7 +11,7 @@ class ServerException implements Exception{
 
 
 
- void handleDioExceptions(DioException e) {
+  void handleDioExceptions(DioException e) {
     switch (e.type) {
       case DioExceptionType.connectionTimeout:
         throw ServerException(
