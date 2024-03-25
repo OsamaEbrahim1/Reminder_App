@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:reminder_app/core/api/api_consumer.dart';
+import 'package:reminder_app/core/api/end_points.dart';
+import 'package:reminder_app/core/errors/exceptions.dart';
 import 'package:reminder_app/cubit/user_state.dart';
 
 class UserCubit extends Cubit<UserState> {
@@ -29,21 +31,19 @@ class UserCubit extends Cubit<UserState> {
   //Sign up confirm password
   TextEditingController confirmPassword = TextEditingController();
 
-  signIn() async{
+  signIn() async {
     try {
       emit(SignInLoading());
-  final response= await Dio().post(
-    "https://expire-team-10.000webhostapp.com/api/user/Login",
-    data: {
-      "email": signInEmail.text,
-      "password": signInPassword.text,
-    },
-  );
-  emit(SignInSuccess());
-  print(response);
-}  catch (e) {
-  emit(SignInFailure(errmessage: e.toString()));
-  print(e.toString());
-}
+      final response = await api.post(
+        EndPoints.signIn,
+        data: {
+          ApiKey.email: signInEmail.text,
+          ApiKey.password: signInPassword.text,
+        },
+      );
+      emit(SignInSuccess());
+    } on ServerException catch (e) {
+      emit(SignInFailure(errmessage: e.errModel.errorMessage));
+    }
   }
 }

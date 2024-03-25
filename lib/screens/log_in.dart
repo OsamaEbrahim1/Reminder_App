@@ -51,13 +51,10 @@ class LogIn extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: CustomTextForm(
                       hinttext: 'Email',
-                      mycontroller: email,
+                      controller: context.read<UserCubit>().signInEmail,
                       label: 'Email',
-                      validator: (val) {
-                        if (val == '') {
-                          return "Can't Be Empty";
-                        }
-                      },
+                      
+                      
                       myicon: Icon(Icons.mail, color: Color(0xFF5dadec)),
                     ),
                   ),
@@ -68,13 +65,9 @@ class LogIn extends StatelessWidget {
                         const EdgeInsets.only(left: 16, right: 16, top: 16),
                     child: CustomTextForm(
                       hinttext: 'Password',
-                      mycontroller: password,
+                      controller: context.read<UserCubit>().signInPassword,
                       label: 'Password',
-                      validator: (val) {
-                        if (val == '') {
-                          return "Can't Be Empty";
-                        }
-                      },
+                      
                       isDense: true,
                       obscureText: true,
                       suffixIcon: true,

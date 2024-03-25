@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomTextForm extends StatefulWidget {
   final String hinttext;
-  final TextEditingController mycontroller;
+  final TextEditingController controller;
   final String label;
   final Icon myicon;
   final String? Function(String?)? validator;
@@ -13,7 +13,7 @@ class CustomTextForm extends StatefulWidget {
   const CustomTextForm(
       {super.key,
       required this.hinttext,
-      required this.mycontroller,
+      required this.controller,
       required this.label,
       required this.myicon,
       this.validator, this.isDense, this.obscureText=false,  this.suffixIcon=false});
@@ -29,7 +29,7 @@ class _CustomTextFormState extends State<CustomTextForm> {
     return TextFormField(
       obscureText: (widget.obscureText && _obscureText),
       validator: widget.validator,
-      controller: widget.mycontroller,
+      controller: widget.controller,
       decoration: InputDecoration(
         labelText: widget.label,
         hintText: widget.hinttext,
