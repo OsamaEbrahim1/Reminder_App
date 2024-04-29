@@ -1,7 +1,7 @@
 class EndPoints{
   static String baseUrl="http://mohamedsadek.c1.is/api/";
   static String signIn="user/Login";
-  static String signup="user/Register";
+  static String signUp="user/Register";
   // static String getUserDataEndPoint(id){
   //   return "user/Profile/$id";
   // }
@@ -18,5 +18,6 @@ class ApiKey{
   static String id="id";
   static String name="name";
   static String image="image";
+  static String confirm_password="confirm_password";
   
 }

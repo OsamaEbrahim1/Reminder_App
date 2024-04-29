@@ -7,8 +7,10 @@ import 'package:reminder_app/cache/cache_helper.dart';
 import 'package:reminder_app/core/api/api_consumer.dart';
 import 'package:reminder_app/core/api/end_points.dart';
 import 'package:reminder_app/core/errors/exceptions.dart';
+import 'package:reminder_app/core/functions/upload_image_to_api.dart';
 import 'package:reminder_app/cubit/user_state.dart';
 import 'package:reminder_app/models/sign_in_model.dart';
+import 'package:reminder_app/models/sign_up_model.dart';
 
 class UserCubit extends Cubit<UserState> {
   UserCubit(this.api) : super(UserInitial());
@@ -34,6 +36,12 @@ class UserCubit extends Cubit<UserState> {
   //Sign up confirm password
   TextEditingController confirmPassword = TextEditingController();
   SignInModel? user; //هناخد متغير من الموديل اللي عملناه علشان نستقبل الريسبوند
+  
+  uploadProfilePic(XFile image){
+  profilePic = image;
+  emit(UploadProfilePic());
+  }
+
   signIn() async {
     try {
       emit(SignInLoading());
@@ -52,5 +60,28 @@ class UserCubit extends Cubit<UserState> {
     } on ServerException catch (e) {
       emit(SignInFailure(errmessage: e.errModel.errorMessage));
     }
+  }
+  
+  signUp() async {
+    try {
+      emit(SignUpLoading());
+  final response = await api.post(
+    EndPoints.signUp,
+    isFormData: true,
+    data: {
+      ApiKey.name: signUpName.text,
+      ApiKey.email: signUpEmail.text,
+      ApiKey.password: signUpPassword.text,
+      ApiKey.confirm_password: confirmPassword.text,
+      ApiKey.image:await uploadImageToAPI(profilePic!)
+    },
+  );
+  final signUpModel=SignUpModel.fromJson(response);
+
+  emit(SignUpSuccess(message: signUpModel.status));
+  
+} on ServerException catch (e) {
+  emit(SignUpFailure(errMessage: e.errModel.errorMessage));
+}
   }
 }
