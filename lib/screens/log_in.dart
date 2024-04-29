@@ -5,6 +5,7 @@ import 'package:reminder_app/components/textformfield.dart';
 import 'package:reminder_app/cubit/user_cubit.dart';
 import 'package:reminder_app/cubit/user_state.dart';
 import 'package:reminder_app/screens/homepage.dart';
+import 'package:reminder_app/screens/profile.dart';
 import 'package:reminder_app/screens/reset_password.dart';
 import 'package:reminder_app/screens/sign_up.dart';
 
@@ -21,9 +22,18 @@ class LogIn extends StatelessWidget {
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
         if (state is SignInSuccess) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text('success')));
-        }else if(state is SignInFailure){
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('success'),
+            ),
+          );
+          context.read<UserCubit>().getUserProfile();
+          Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) {
+                            return PersonalProfile();
+                          }),
+                        );
+        } else if (state is SignInFailure) {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(state.errmessage)));
         }
@@ -53,8 +63,6 @@ class LogIn extends StatelessWidget {
                       hinttext: 'Email',
                       controller: context.read<UserCubit>().signInEmail,
                       label: 'Email',
-                      
-                      
                       myicon: Icon(Icons.mail, color: Color(0xFF5dadec)),
                     ),
                   ),
@@ -67,7 +75,6 @@ class LogIn extends StatelessWidget {
                       hinttext: 'Password',
                       controller: context.read<UserCubit>().signInPassword,
                       label: 'Password',
-                      
                       isDense: true,
                       obscureText: true,
                       suffixIcon: true,

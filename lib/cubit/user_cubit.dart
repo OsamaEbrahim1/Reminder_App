@@ -11,6 +11,7 @@ import 'package:reminder_app/core/functions/upload_image_to_api.dart';
 import 'package:reminder_app/cubit/user_state.dart';
 import 'package:reminder_app/models/sign_in_model.dart';
 import 'package:reminder_app/models/sign_up_model.dart';
+import 'package:reminder_app/models/user_model.dart';
 
 class UserCubit extends Cubit<UserState> {
   UserCubit(this.api) : super(UserInitial());
@@ -82,6 +83,18 @@ class UserCubit extends Cubit<UserState> {
   
 } on ServerException catch (e) {
   emit(SignUpFailure(errMessage: e.errModel.errorMessage));
+}
+  }
+
+  getUserProfile() async{
+  try {
+    emit(GetUserLoading());
+  final response = await api.get(
+    EndPoints.Profile,
+  );
+  emit(GetUserSuccess(user: UserModel.fromJson(response)));
+} on ServerException catch (e) {
+  emit(GetUserFailure(errMessage: e.errModel.errorMessage));
 }
   }
 }

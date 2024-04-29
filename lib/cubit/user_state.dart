@@ -1,3 +1,5 @@
+import 'package:reminder_app/models/user_model.dart';
+
 class UserState {}
 
 final class UserInitial extends UserState {}
@@ -20,4 +22,17 @@ final class SignUpFailure extends UserState {
   final String errMessage;
 
   SignUpFailure({required this.errMessage});
+}
+
+
+final class GetUserSuccess extends UserState {
+  final UserModel user;
+
+  GetUserSuccess({required this.user});
+}
+final class GetUserLoading extends UserState {}
+final class GetUserFailure extends UserState {
+  final String errMessage;
+
+  GetUserFailure({required this.errMessage});
 }
