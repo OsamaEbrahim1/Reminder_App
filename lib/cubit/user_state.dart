@@ -1,3 +1,4 @@
+import 'package:reminder_app/models/log_out_model.dart';
 import 'package:reminder_app/models/user_model.dart';
 
 class UserState {}
@@ -35,4 +36,16 @@ final class GetUserFailure extends UserState {
   final String errMessage;
 
   GetUserFailure({required this.errMessage});
+}
+
+final class LogOutSuccess extends UserState {
+  final LogOutModel message;
+
+  LogOutSuccess({required this.message});
+}
+final class LogOutLoading extends UserState {}
+final class LogOutFailure extends UserState {
+  final String errmessage;
+
+  LogOutFailure({required this.errmessage});
 }

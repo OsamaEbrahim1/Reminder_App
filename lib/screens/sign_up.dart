@@ -20,10 +20,15 @@ class SignUP extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
-        if(state is SignUpSuccess){
-          ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text(state.message)));
-        }else if(state is SignUpFailure){
-          ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text(state.errMessage)));
+        if (state is SignUpSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(state.message),
+            ),
+          );
+        } else if (state is SignUpFailure) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.errMessage)));
         }
       },
       builder: (context, state) {
@@ -115,17 +120,19 @@ class SignUP extends StatelessWidget {
                   //button
                   Padding(
                     padding: const EdgeInsets.all(25),
-                    child: state is SignUpLoading?CircularProgressIndicator() : CustomButton(
-                      title: "Create Acount",
-                      onPressed: () {
-                        context.read<UserCubit>().signUp();
-                        // Navigator.of(context).push(
-                        //   MaterialPageRoute(builder: (context) {
-                        //     return LogIn();
-                        //   }),
-                        // );
-                      },
-                    ),
+                    child: state is SignUpLoading
+                        ? CircularProgressIndicator()
+                        : CustomButton(
+                            title: "Create Acount",
+                            onPressed: () {
+                              context.read<UserCubit>().signUp();
+                              // Navigator.of(context).push(
+                              //   MaterialPageRoute(builder: (context) {
+                              //     return LogIn();
+                              //   }),
+                              // );
+                            },
+                          ),
                   ),
 
                   //text

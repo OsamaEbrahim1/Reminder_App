@@ -27,12 +27,14 @@ class LogIn extends StatelessWidget {
               content: Text('success'),
             ),
           );
-          context.read<UserCubit>().getUserProfile();
+          context
+              .read<UserCubit>()
+              .getUserProfile(); //علشان يعرض الداتا في البروفايل قبل مايروح للصفحة الرئيسية
           Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) {
-                            return PersonalProfile();
-                          }),
-                        );
+            MaterialPageRoute(builder: (context) {
+              return HomePage();
+            }),
+          );
         } else if (state is SignInFailure) {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(state.errmessage)));
@@ -40,165 +42,164 @@ class LogIn extends StatelessWidget {
       },
       builder: (context, state) {
         return Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              leading: BackButton(color: Color(0xFF5DADEC)),
-            ),
-            body: SingleChildScrollView(
-              child: Form(
-                key: context.read<UserCubit>().signInFormKey,
-                child: Column(children: [
-                  Center(
-                    child: Image(
-                      image: AssetImage("images/log_in.png"),
-                      height: 250,
-                      width: 250,
-                    ),
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: BackButton(color: Color(0xFF5DADEC)),
+          ),
+          body: SingleChildScrollView(
+            child: Form(
+              key: context.read<UserCubit>().signInFormKey,
+              child: Column(children: [
+                Center(
+                  child: Image(
+                    image: AssetImage("images/log_in.png"),
+                    height: 250,
+                    width: 250,
                   ),
-                  //email
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: CustomTextForm(
-                      hinttext: 'Email',
-                      controller: context.read<UserCubit>().signInEmail,
-                      label: 'Email',
-                      myicon: Icon(Icons.mail, color: Color(0xFF5dadec)),
-                    ),
+                ),
+                //email
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: CustomTextForm(
+                    hinttext: 'Email',
+                    controller: context.read<UserCubit>().signInEmail,
+                    label: 'Email',
+                    myicon: Icon(Icons.mail, color: Color(0xFF5dadec)),
                   ),
+                ),
 
-                  //password form
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 16, right: 16, top: 16),
-                    child: CustomTextForm(
-                      hinttext: 'Password',
-                      controller: context.read<UserCubit>().signInPassword,
-                      label: 'Password',
-                      isDense: true,
-                      obscureText: true,
-                      suffixIcon: true,
-                      myicon: Icon(Icons.lock, color: Color(0xFF5dadec)),
+                //password form
+                Padding(
+                  padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+                  child: CustomTextForm(
+                    hinttext: 'Password',
+                    controller: context.read<UserCubit>().signInPassword,
+                    label: 'Password',
+                    isDense: true,
+                    obscureText: true,
+                    suffixIcon: true,
+                    myicon: Icon(Icons.lock, color: Color(0xFF5dadec)),
+                  ),
+                ),
+
+                //Forget Password?
+                Padding(
+                  padding: const EdgeInsets.only(right: 175, top: 10),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return ResetPassword();
+                      }));
+                    },
+                    child: const Text(
+                      "Forget Password?",
+                      style: TextStyle(color: Color(0xFF5DADEC), fontSize: 19),
                     ),
                   ),
+                ),
 
-                  //Forget Password?
-                  Padding(
-                    padding: const EdgeInsets.only(right: 175, top: 10),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.of(context)
-                            .push(MaterialPageRoute(builder: (context) {
-                          return ResetPassword();
-                        }));
-                      },
-                      child: const Text(
-                        "Forget Password?",
-                        style:
-                            TextStyle(color: Color(0xFF5DADEC), fontSize: 19),
+                //button
+                Padding(
+                  padding: const EdgeInsets.all(18),
+                  child: state is SignInLoading
+                      ? CircularProgressIndicator()
+                      : CustomButton(
+                          title: "Login",
+                          onPressed: () {
+                            context.read<UserCubit>().signIn();
+                          },
+                        ),
+                ),
+
+                //divider
+                const Row(
+                  children: [
+                    Expanded(
+                      child: Divider(
+                        color: Color(0xFF7f8184),
+                        thickness: 2,
+                        indent: 30,
+                        endIndent: 10,
+                        height: 25,
                       ),
                     ),
-                  ),
+                    Text("Or Login With:",
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Color(0xFF7f8184),
+                            fontWeight: FontWeight.bold)),
+                    Expanded(
+                      child: Divider(
+                        color: Color(0xFF7f8184),
+                        thickness: 2,
+                        indent: 10,
+                        endIndent: 30,
+                        height: 25,
+                      ),
+                    ),
+                  ],
+                ),
 
-                  //button
-                  Padding(
-                    padding: const EdgeInsets.all(18),
-                    child: state is SignInLoading
-                        ? CircularProgressIndicator()
-                        : CustomButton(
-                            title: "Login",
-                            onPressed: () {
-                              context.read<UserCubit>().signIn();
+                //images
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      child: Image(
+                        image: AssetImage("images/google.png"),
+                        height: 50,
+                        width: 50,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(30),
+                      child: InkWell(
+                        child: Image(
+                          image: AssetImage("images/apple.png"),
+                          height: 50,
+                          width: 50,
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      child: Image(
+                        image: AssetImage("images/facebook.png"),
+                        height: 50,
+                        width: 50,
+                      ),
+                    ),
+                  ],
+                ),
+
+                //text
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Don't Have an Account?"),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return SignUP();
                             },
                           ),
-                  ),
-
-                  //divider
-                  const Row(
-                    children: [
-                      Expanded(
-                        child: Divider(
-                          color: Color(0xFF7f8184),
-                          thickness: 2,
-                          indent: 30,
-                          endIndent: 10,
-                          height: 25,
-                        ),
+                        );
+                      },
+                      child: Text(
+                        "SignUp",
+                        style:
+                            TextStyle(color: Color(0xFF55abee), fontSize: 15),
                       ),
-                      Text("Or Login With:",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Color(0xFF7f8184),
-                              fontWeight: FontWeight.bold)),
-                      Expanded(
-                        child: Divider(
-                          color: Color(0xFF7f8184),
-                          thickness: 2,
-                          indent: 10,
-                          endIndent: 30,
-                          height: 25,
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  //images
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        child: Image(
-                          image: AssetImage("images/google.png"),
-                          height: 50,
-                          width: 50,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(30),
-                        child: InkWell(
-                          child: Image(
-                            image: AssetImage("images/apple.png"),
-                            height: 50,
-                            width: 50,
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        child: Image(
-                          image: AssetImage("images/facebook.png"),
-                          height: 50,
-                          width: 50,
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  //text
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Don't Have an Account?"),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return SignUP();
-                              },
-                            ),
-                          );
-                        },
-                        child: Text(
-                          "SignUp",
-                          style:
-                              TextStyle(color: Color(0xFF55abee), fontSize: 15),
-                        ),
-                      ),
-                    ],
-                  ),
-                ]),
-              ),
-            ));
+                    ),
+                  ],
+                ),
+              ]),
+            ),
+          ),
+        );
       },
     );
   }

@@ -6,6 +6,8 @@ class EndPoints{
   //   return "user/Profile/$id";
   // }
   static String Profile="profile/ProfileUser/1";
+  static String LogOut="user/Logout";
+  
 }
 
 class ApiKey{
