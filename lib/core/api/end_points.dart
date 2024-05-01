@@ -7,7 +7,7 @@ class EndPoints{
   // }
   static String Profile="profile/ProfileUser/1";
   static String LogOut="user/Logout";
-  
+  static String forgetpassword="forgetPassword";
 }
 
 class ApiKey{
@@ -16,7 +16,8 @@ class ApiKey{
   static String email="email";
   static String password="password";
   static String token="token";
-  static String message="message";
+  static String message="message"; 
+  static String success="success";
   static String id="id";
   static String name="name";
   static String image="image";

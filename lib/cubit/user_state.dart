@@ -4,6 +4,8 @@ import 'package:reminder_app/models/user_model.dart';
 class UserState {}
 
 final class UserInitial extends UserState {}
+
+//signIn
 final class SignInSuccess extends UserState {}
 final class SignInLoading extends UserState {}
 final class SignInFailure extends UserState {
@@ -11,8 +13,14 @@ final class SignInFailure extends UserState {
 
   SignInFailure({required this.errmessage});
 }
+
+
+//uploadImage
 final class UploadProfilePic extends UserState {}
 
+
+
+//signUp
 final class SignUpSuccess extends UserState {
   final String message;
 
@@ -26,6 +34,8 @@ final class SignUpFailure extends UserState {
 }
 
 
+
+//Profile=getuser
 final class GetUserSuccess extends UserState {
   final UserModel user;
 
@@ -38,6 +48,8 @@ final class GetUserFailure extends UserState {
   GetUserFailure({required this.errMessage});
 }
 
+
+//LogOut
 final class LogOutSuccess extends UserState {
   final LogOutModel message;
 
@@ -48,4 +60,18 @@ final class LogOutFailure extends UserState {
   final String errmessage;
 
   LogOutFailure({required this.errmessage});
+}
+
+
+//Forget Password
+final class ForgetPassSuccess extends UserState {
+  final String message;
+
+  ForgetPassSuccess({required this.message});
+}
+final class ForgetPassLoading extends UserState {}
+final class ForgetPassFailure extends UserState {
+  final String errMessage;
+
+  ForgetPassFailure({required this.errMessage});
 }

@@ -9,6 +9,7 @@ import 'package:reminder_app/core/api/end_points.dart';
 import 'package:reminder_app/core/errors/exceptions.dart';
 import 'package:reminder_app/core/functions/upload_image_to_api.dart';
 import 'package:reminder_app/cubit/user_state.dart';
+import 'package:reminder_app/models/forget_model.dart';
 import 'package:reminder_app/models/log_out_model.dart';
 import 'package:reminder_app/models/sign_in_model.dart';
 import 'package:reminder_app/models/sign_up_model.dart';
@@ -29,8 +30,8 @@ class UserCubit extends Cubit<UserState> {
   XFile? profilePic;
   //Sign up name
   TextEditingController signUpName = TextEditingController();
-  //Sign up phone number
-  TextEditingController signUpPhoneNumber = TextEditingController();
+  //forget password
+  TextEditingController forgetPassword = TextEditingController();
   //Sign up email
   TextEditingController signUpEmail = TextEditingController();
   //Sign up password
@@ -108,6 +109,23 @@ class UserCubit extends Cubit<UserState> {
   emit(LogOutSuccess(message: LogOutModel.fromJson(response) ));
 } on ServerException catch (e) {
   emit(LogOutFailure(errmessage:e.errModel.errorMessage));
+}
+  }
+
+  forgetPass() async{
+    try {
+      emit(ForgetPassLoading());
+  final response = await api.post(
+    EndPoints.forgetpassword,
+    data: {
+      ApiKey.email: forgetPassword.text,
+    },
+  );
+  final forgetModel = ForgetModel.fromJson(response);
+    final successMessage = forgetModel.success ? 'Password reset successful' : 'Password reset failed';
+    emit(ForgetPassSuccess(message: successMessage));
+} on ServerException catch (e) {
+  emit(ForgetPassFailure(errMessage: e.errModel.errorMessage));
 }
   }
 }

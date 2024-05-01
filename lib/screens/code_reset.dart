@@ -1,113 +1,124 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:reminder_app/cubit/user_cubit.dart';
+import 'package:reminder_app/cubit/user_state.dart';
 import 'package:reminder_app/screens/new_password.dart';
-
 
 class CodeReset extends StatelessWidget {
   const CodeReset({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          leading: BackButton(color: Color(0xFF5DADEC)),
-      ),
-      body:SingleChildScrollView(
-        child: Column(children: [
-              Padding(
-          padding: const EdgeInsets.only(top: 25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //text1
-      
-              const Padding(
-                padding: EdgeInsets.only(left: 15),
-                child: Text(
-                  "Get a verification code",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 30,
-                  ),
-                ),
-              ),
-      
-              //text2
-      
-              const Padding(
-                padding: EdgeInsets.all(15),
-                child: Text(
-                  "A text message with a 6-digit verification code was just sent to your email. ",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 92, 92, 92),
-                    fontSize: 14,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
-                child: OtpTextField(
-        numberOfFields: 6,
-        borderColor: Color(0xFF512DA8),
-        //set to true to show as box or false to show as dash
-        showFieldAsBox: true, 
-        //runs when a code is typed in
-        onCodeChanged: (String code) {
-            //handle validation or checks here           
-        },
-        //runs when every textfield is filled
-        onSubmit: (String verificationCode){
-            showDialog(
-                context: context,
-                builder: (context){
-                return AlertDialog(
-                    title: Text("Verification Code"),
-                    content: Text('Code entered is $verificationCode'),
-                );
-                }
-            );
-        }, // end onSubmit
-    ),
-              ),
-      
-              const SizedBox(
-                height: 15,
-              ),
-      
-              Center(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18)),
-                    backgroundColor: Color(0xFF5DADEC),
-                    minimumSize: Size(210, 49),
-                  ),
-                  onPressed: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return NewPass();
-                    }));
-                  },
-                  child: const Text(
-                    "Submit",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+    return BlocConsumer<UserCubit, UserState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            leading: BackButton(color: Color(0xFF5DADEC)),
           ),
-        ),
-        ]),
-      ),
+          body: state is ForgetPassLoading
+              ? CircularProgressIndicator()
+              : state is ForgetPassSuccess? SingleChildScrollView(
+                  child: Column(children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 25),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          //text1
+
+                          const Padding(
+                            padding: EdgeInsets.only(left: 15),
+                            child: Text(
+                              "Get a verification code",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 30,
+                              ),
+                            ),
+                          ),
+
+                          //text2
+
+                          const Padding(
+                            padding: EdgeInsets.all(15),
+                            child: Text(
+                              "A text message with a 6-digit verification code was just sent to your email. ",
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 92, 92, 92),
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 30),
+                            child: OtpTextField(
+                              numberOfFields: 6,
+                              borderColor: Color(0xFF512DA8),
+                              //set to true to show as box or false to show as dash
+                              showFieldAsBox: true,
+                              //runs when a code is typed in
+                              onCodeChanged: (String code) {
+                                //handle validation or checks here
+                              },
+                              //runs when every textfield is filled
+                              onSubmit: (String verificationCode) {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text("Verification Code"),
+                                        content: Text(
+                                            'Code entered is $verificationCode'),
+                                      );
+                                    });
+                              }, // end onSubmit
+                            ),
+                          ),
+
+                          const SizedBox(
+                            height: 15,
+                          ),
+
+                          Center(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18)),
+                                backgroundColor: Color(0xFF5DADEC),
+                                minimumSize: Size(210, 49),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .push(MaterialPageRoute(builder: (context) {
+                                  return NewPass();
+                                }));
+                              },
+                              child: const Text(
+                                "Submit",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ]),
+                ):Container(),
+        );
+      },
     );
   }
 }
-
 
 // TextField(
 //                   decoration: InputDecoration(
