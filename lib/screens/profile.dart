@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reminder_app/cubit/user_cubit.dart';
 import 'package:reminder_app/cubit/user_state.dart';
+import 'package:reminder_app/screens/edit_user.dart';
 
 class PersonalProfile extends StatelessWidget {
   const PersonalProfile({super.key});
@@ -52,6 +53,13 @@ class PersonalProfile extends StatelessWidget {
                               ),
                               trailing: Icon(Icons.edit,
                                   color: Color(0xFF5DADEC), size: 25),
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(builder: (context) {
+                                    return UpdateProfile();
+                                  }),
+                                );
+                              },
                             ),
 
                             const SizedBox(height: 16),
@@ -66,11 +74,18 @@ class PersonalProfile extends StatelessWidget {
                               ),
                               trailing: Icon(Icons.edit,
                                   color: Color(0xFF5DADEC), size: 25),
+                                  onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(builder: (context) {
+                                    return UpdateProfile();
+                                  }),
+                                );
+                              },
                             ),
                             const SizedBox(height: 16),
 
                             //! password
-                            const ListTile(
+                              ListTile(
                               title: Text("password"),
                               leading: Icon(
                                 Icons.lock,
@@ -79,6 +94,13 @@ class PersonalProfile extends StatelessWidget {
                               ),
                               trailing: Icon(Icons.edit,
                                   color: Color(0xFF5DADEC), size: 25),
+                                  onTap: () {
+                                    Navigator.of(context).push(
+                                  MaterialPageRoute(builder: (context) {
+                                    return UpdateProfile();
+                                  }),
+                                );
+                                  },
                             ),
                             const SizedBox(height: 16),
                           ],

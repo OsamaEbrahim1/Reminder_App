@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
       builder: (context, state) {
         return Scaffold(
             body: state is GetUserLoading
-              ? CircularProgressIndicator()
+              ? Center(child: CircularProgressIndicator())
               : state is GetUserSuccess
                   ? SingleChildScrollView(
               child: Column(
@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                           padding:
                               EdgeInsets.only(top: 30, left: 10, right: 70),
                           child: Text(state.user.name,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 18,
                                 color: Colors.blueGrey,
                               )),

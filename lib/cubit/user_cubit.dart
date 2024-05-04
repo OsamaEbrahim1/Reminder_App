@@ -9,10 +9,13 @@ import 'package:reminder_app/core/api/end_points.dart';
 import 'package:reminder_app/core/errors/exceptions.dart';
 import 'package:reminder_app/core/functions/upload_image_to_api.dart';
 import 'package:reminder_app/cubit/user_state.dart';
+import 'package:reminder_app/models/add_model.dart';
+import 'package:reminder_app/models/edit_user_model.dart';
 import 'package:reminder_app/models/forget_model.dart';
 import 'package:reminder_app/models/log_out_model.dart';
 import 'package:reminder_app/models/sign_in_model.dart';
 import 'package:reminder_app/models/sign_up_model.dart';
+import 'package:reminder_app/models/update_item_model.dart';
 import 'package:reminder_app/models/user_model.dart';
 
 class UserCubit extends Cubit<UserState> {
@@ -38,6 +41,26 @@ class UserCubit extends Cubit<UserState> {
   TextEditingController signUpPassword = TextEditingController();
   //Sign up confirm password
   TextEditingController confirmPassword = TextEditingController();
+
+  TextEditingController updateName = TextEditingController();
+  TextEditingController updateEmail = TextEditingController();
+  TextEditingController UpdatePass = TextEditingController();
+  TextEditingController UpdateConfirm_pass = TextEditingController();
+
+  TextEditingController productName = TextEditingController();
+  TextEditingController proDate = TextEditingController();
+  TextEditingController expDate = TextEditingController();
+  TextEditingController startReminder = TextEditingController();
+  TextEditingController BatchNumber = TextEditingController();
+  TextEditingController description = TextEditingController();
+  TextEditingController category = TextEditingController();
+
+  TextEditingController updateTitle = TextEditingController();
+  TextEditingController updateProDate = TextEditingController();
+  TextEditingController updateExpDate = TextEditingController();
+  TextEditingController updateStartReminder = TextEditingController();
+  TextEditingController updateCode = TextEditingController();
+  TextEditingController updateItemImage = TextEditingController();
   SignInModel? user; //هناخد متغير من الموديل اللي عملناه علشان نستقبل الريسبوند
 
   uploadProfilePic(XFile image) {
@@ -99,33 +122,98 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
-
   logOut() async {
-  try {
+    try {
       emit(LogOutLoading());
-  final response = await api.post(
-    EndPoints.LogOut,
-  );
-  emit(LogOutSuccess(message: LogOutModel.fromJson(response) ));
-} on ServerException catch (e) {
-  emit(LogOutFailure(errmessage:e.errModel.errorMessage));
-}
+      final response = await api.post(
+        EndPoints.LogOut,
+      );
+      emit(LogOutSuccess(message: LogOutModel.fromJson(response)));
+    } on ServerException catch (e) {
+      emit(LogOutFailure(errmessage: e.errModel.errorMessage));
+    }
   }
 
-  forgetPass() async{
+  forgetPass() async {
     try {
       emit(ForgetPassLoading());
-  final response = await api.post(
-    EndPoints.forgetpassword,
-    data: {
-      ApiKey.email: forgetPassword.text,
-    },
-  );
-  final forgetModel = ForgetModel.fromJson(response);
-    final successMessage = forgetModel.success ? 'Password reset successful' : 'Password reset failed';
-    emit(ForgetPassSuccess(message: successMessage));
-} on ServerException catch (e) {
-  emit(ForgetPassFailure(errMessage: e.errModel.errorMessage));
-}
+      final response = await api.post(
+        EndPoints.forgetpassword,
+        data: {
+          ApiKey.email: forgetPassword.text,
+        },
+      );
+      final forgetModel = ForgetModel.fromJson(response);
+      final successMessage = forgetModel.success
+          ? 'Password reset successful'
+          : 'Password reset failed';
+      emit(ForgetPassSuccess(message: successMessage));
+    } on ServerException catch (e) {
+      emit(ForgetPassFailure(errMessage: e.errModel.errorMessage));
+    }
+  }
+
+  addItem() async {
+    try {
+      emit(AddItemLoading());
+      final response = await api.post(
+        EndPoints.addItem,
+        isFormData: true,
+        data: {
+          ApiKey.title: productName.text,
+          ApiKey.pro_date: proDate.text,
+          ApiKey.exp_date: expDate.text,
+          ApiKey.start_reminder: startReminder.text,
+          ApiKey.description: description.text,
+          ApiKey.category_id: category.text,
+          ApiKey.item_image: await uploadImageToAPI(profilePic!)
+        },
+      );
+      emit(AddItemSuccess(message: AddItemModel.fromJson(response)));
+    } on ServerException catch (e) {
+      emit(AddItemFailure(errMessage: e.errModel.errorMessage));
+    }
+  }
+
+  updateProfile() async {
+    try {
+      emit(EditUserLoading());
+      final response = await api.post(
+        EndPoints.updateProfile,
+        isFormData: true,
+        data: {
+          ApiKey.name: updateName.text,
+          ApiKey.email: updateEmail.text,
+          ApiKey.password: UpdatePass.text,
+          ApiKey.confirm_password: UpdateConfirm_pass.text,
+          ApiKey.image: await uploadImageToAPI(profilePic!)
+        },
+      );
+
+      emit(EditUserSuccess(message: EditUserModel.fromJson(response)));
+    } on ServerException catch (e) {
+      emit(EditUserFailure(errMessage: e.errModel.errorMessage));
+    }
+  }
+
+  updateItem() async {
+    try {
+      emit(UpdateLoading());
+      final response = await api.post(
+        EndPoints.update,
+        isFormData: true,
+        data: {
+          ApiKey.code = updateCode.text,
+          ApiKey.title = updateTitle.text,
+          ApiKey.item_image = updateItemImage.text,
+          ApiKey.pro_date = updateProDate.text,
+          ApiKey.exp_date = updateExpDate.text,
+          ApiKey.start_reminder = updateStartReminder.text
+        },
+      );
+      emit(UpdateSuccess(message: UpdateItemModel.fromJson(response)));
+    } on ServerException catch (e) {
+      emit(UpdateFailure(errMessage: e.errModel.errorMessage));
+    }
   }
 }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CustomTextForm extends StatefulWidget {
-  final String hinttext;
+  final String? hinttext;
   final TextEditingController controller;
-  final String label;
-  final Icon myicon;
+  final String? label;
+  final Icon? myicon;
   final String? Function(String?)? validator;
   final bool? isDense;
   final bool obscureText;
@@ -12,10 +12,10 @@ class CustomTextForm extends StatefulWidget {
 
   const CustomTextForm(
       {super.key,
-      required this.hinttext,
+        this.hinttext,
       required this.controller,
-      required this.label,
-      required this.myicon,
+      this.label,
+      this.myicon,
       this.validator, this.isDense, this.obscureText=false,  this.suffixIcon=false});
 
   @override

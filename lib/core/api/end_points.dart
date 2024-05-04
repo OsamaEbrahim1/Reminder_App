@@ -8,6 +8,11 @@ class EndPoints{
   static String Profile="profile/ProfileUser/1";
   static String LogOut="user/Logout";
   static String forgetpassword="forgetPassword";
+  static String addItem="item/create";
+  static String updateProfile="profile/updateprofile/1";
+  static String update = "item/updatedata";
+  
+  
 }
 
 class ApiKey{
@@ -22,5 +27,16 @@ class ApiKey{
   static String name="name";
   static String image="image";
   static String confirm_password="confirm_password";
+
+  static String title = "title";
+  static String item_image = "item_image";
+  static String pro_date = "pro_date";
+  static String start_reminder = "start_reminder";
+  static String exp_date = "exp_date";
+  static String description = "description";
+  static String category_id = "category_id";
+  static String code = "code";
+
+
   
 }

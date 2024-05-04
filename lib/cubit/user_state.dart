@@ -1,4 +1,7 @@
+import 'package:reminder_app/models/add_model.dart';
+import 'package:reminder_app/models/edit_user_model.dart';
 import 'package:reminder_app/models/log_out_model.dart';
+import 'package:reminder_app/models/update_item_model.dart';
 import 'package:reminder_app/models/user_model.dart';
 
 class UserState {}
@@ -75,3 +78,43 @@ final class ForgetPassFailure extends UserState {
 
   ForgetPassFailure({required this.errMessage});
 }
+
+
+//Add Item
+final class AddItemSuccess extends UserState {
+  final AddItemModel message;
+
+  AddItemSuccess({required this.message});
+}
+final class AddItemLoading extends UserState {}
+final class AddItemFailure extends UserState {
+  final String errMessage;
+  AddItemFailure({required this.errMessage});
+}
+
+//Edit User
+final class EditUserSuccess extends UserState {
+  final EditUserModel message;
+
+  EditUserSuccess({required this.message});
+}
+final class EditUserLoading extends UserState {}
+final class EditUserFailure extends UserState {
+  final String errMessage;
+
+  EditUserFailure({required this.errMessage});
+}
+
+
+//update product
+ final class UpdateSuccess extends UserState {
+   final UpdateItemModel message;
+
+    UpdateSuccess({required this.message});
+ }
+  final class UpdateLoading extends UserState {}
+  final class UpdateFailure extends UserState {
+    final String errMessage;
+
+   UpdateFailure({required this.errMessage});
+  }

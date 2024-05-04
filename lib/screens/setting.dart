@@ -4,6 +4,7 @@ import 'package:reminder_app/screens/add_item.dart';
 import 'package:reminder_app/screens/calender.dart';
 import 'package:reminder_app/screens/homepage.dart';
 import 'package:reminder_app/screens/log_in.dart';
+import 'package:reminder_app/screens/profile.dart';
 
 class Settings extends StatefulWidget {
   const Settings({super.key});
@@ -39,7 +40,13 @@ class _SettingsState extends State<Settings> {
                   child: SearchField(),
                 ),
                 const SizedBox(height: 1),
-                const ListTile(
+                  ListTile(
+                  onTap: () {
+                    Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (context) {
+                          return const PersonalProfile();
+                        }));
+                  },
                   title: Text(
                     "Profile",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
