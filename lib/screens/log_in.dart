@@ -27,9 +27,7 @@ class LogIn extends StatelessWidget {
               content: Text('success'),
             ),
           );
-          context
-              .read<UserCubit>()
-              .getUserProfile(); //علشان يعرض الداتا في البروفايل قبل مايروح للصفحة الرئيسية
+          context.read<UserCubit>().getUserProfile(); //علشان يعرض الداتا في البروفايل قبل مايروح للصفحة الرئيسية
           Navigator.of(context).push(
             MaterialPageRoute(builder: (context) {
               return HomePage();

@@ -166,6 +166,7 @@ class UserCubit extends Cubit<UserState> {
           ApiKey.start_reminder: startReminder.text,
           ApiKey.description: description.text,
           ApiKey.category_id: category.text,
+          ApiKey.code: BatchNumber.text,
           ApiKey.item_image: await uploadImageToAPI(profilePic!)
         },
       );
@@ -189,7 +190,6 @@ class UserCubit extends Cubit<UserState> {
           ApiKey.image: await uploadImageToAPI(profilePic!)
         },
       );
-
       emit(EditUserSuccess(message: EditUserModel.fromJson(response)));
     } on ServerException catch (e) {
       emit(EditUserFailure(errMessage: e.errModel.errorMessage));

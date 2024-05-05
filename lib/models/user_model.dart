@@ -9,8 +9,8 @@ class UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> jsonData) {
     return UserModel(
-        image: jsonData[ApiKey.image],
-        email: jsonData[ApiKey.email],
-        name: jsonData[ApiKey.name]);
+        image: jsonData['user'][ApiKey.image],
+        email: jsonData['user'][ApiKey.email],
+        name: jsonData['user'][ApiKey.name]);
   }
 }

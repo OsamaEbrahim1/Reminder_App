@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:reminder_app/components/textformfield.dart';
 import 'package:reminder_app/cubit/user_cubit.dart';
 import 'package:reminder_app/cubit/user_state.dart';
+import 'package:reminder_app/screens/all_items.dart';
 import 'package:reminder_app/screens/calender.dart';
 import 'package:reminder_app/screens/homepage.dart';
 import 'package:reminder_app/screens/setting.dart';
@@ -51,7 +52,17 @@ class _EditState extends State<Add> {
   Widget build(BuildContext context) {
     return BlocConsumer<UserCubit, UserState>(
       listener: (context, state) {
-        // TODO: implement listener
+        if (state is AddItemSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("item added successfully"),
+            ),
+          );
+          
+        } else if (state is AddItemFailure) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.errMessage)));
+        }
       },
       builder: (context, state) {
         return Scaffold(
@@ -495,6 +506,11 @@ class _EditState extends State<Add> {
                       title: "Add",
                       onPressed: () {
                         context.read<UserCubit>().addItem();
+                        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) {
+              return AllItems();
+            }),
+          );
                       },
                     ),
                   ),

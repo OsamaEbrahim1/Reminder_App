@@ -22,15 +22,11 @@ class UpdateProfile extends StatelessWidget {
       listener: (context, state) {
         if (state is EditUserSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
+            const SnackBar(
               content: Text("Updated successfully"),
             ),
           );
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) {
-              return LogIn();
-            }),
-          );
+          
         } else if (state is EditUserFailure) {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(state.errMessage)));
@@ -123,12 +119,17 @@ class UpdateProfile extends StatelessWidget {
                 //button
                 Padding(
                   padding: const EdgeInsets.all(25),
-                  child: state is SignUpLoading
+                  child: state is EditUserLoading
                       ? CircularProgressIndicator()
                       : CustomButton(
                           title: "Update",
                           onPressed: () {
                             context.read<UserCubit>().updateProfile();
+                            Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) {
+              return LogIn();
+            }),
+          );
                           },
                         ),
                 ),

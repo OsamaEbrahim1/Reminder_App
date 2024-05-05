@@ -5,11 +5,11 @@ class EndPoints{
   // static String getUserDataEndPoint(id){
   //   return "user/Profile/$id";
   // }
-  static String Profile="profile/ProfileUser/1";
+  static String Profile="profile/ProfileUser";
   static String LogOut="user/Logout";
   static String forgetpassword="forgetPassword";
   static String addItem="item/create";
-  static String updateProfile="profile/updateprofile/1";
+  static String updateProfile="profile/updateprofile";
   static String update = "item/updatedata";
   
   
