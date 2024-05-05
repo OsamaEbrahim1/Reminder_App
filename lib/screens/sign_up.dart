@@ -14,8 +14,8 @@ class SignUP extends StatelessWidget {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
-  GlobalKey<FormState> formstate = GlobalKey<FormState>();
-
+ // GlobalKey<FormState> formstate = GlobalKey<FormState>();
+  GlobalKey<FormState> signUpFormKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserCubit, UserState>(
@@ -40,7 +40,7 @@ class SignUP extends StatelessWidget {
           ),
           body: SingleChildScrollView(
             child: Form(
-              key: context.read<UserCubit>().signUpFormKey,
+              key: signUpFormKey,
               child: Column(
                 children: [
                   //! Image

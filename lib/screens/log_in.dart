@@ -15,7 +15,9 @@ class LogIn extends StatelessWidget {
 
   TextEditingController password = TextEditingController();
 
-  GlobalKey<FormState> formstate = GlobalKey<FormState>();
+  //GlobalKey<FormState> formstate = GlobalKey<FormState>();
+  //Sign in Form key
+  GlobalKey<FormState> signInFormKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +49,7 @@ class LogIn extends StatelessWidget {
           ),
           body: SingleChildScrollView(
             child: Form(
-              key: context.read<UserCubit>().signInFormKey,
+              key: signInFormKey,
               child: Column(children: [
                 Center(
                   child: Image(

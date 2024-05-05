@@ -1,6 +1,7 @@
 import 'package:reminder_app/models/add_model.dart';
 import 'package:reminder_app/models/edit_user_model.dart';
 import 'package:reminder_app/models/log_out_model.dart';
+import 'package:reminder_app/models/showone_model.dart';
 import 'package:reminder_app/models/update_item_model.dart';
 import 'package:reminder_app/models/user_model.dart';
 
@@ -53,11 +54,7 @@ final class GetUserFailure extends UserState {
 
 
 //LogOut
-final class LogOutSuccess extends UserState {
-  final LogOutModel message;
-
-  LogOutSuccess({required this.message});
-}
+final class LogOutSuccess extends UserState {}
 final class LogOutLoading extends UserState {}
 final class LogOutFailure extends UserState {
   final String errmessage;
@@ -107,14 +104,26 @@ final class EditUserFailure extends UserState {
 
 
 //update product
- final class UpdateSuccess extends UserState {
-   final UpdateItemModel message;
+final class UpdateSuccess extends UserState {
+  final UpdateItemModel message;
 
     UpdateSuccess({required this.message});
- }
+}
   final class UpdateLoading extends UserState {}
   final class UpdateFailure extends UserState {
     final String errMessage;
 
-   UpdateFailure({required this.errMessage});
+  UpdateFailure({required this.errMessage});
   }
+
+
+//showone product
+final class ShowOneSuccess extends UserState {}
+
+final class ShowOneLoading extends UserState {}
+
+final class ShowOneFailure extends UserState {
+  final String errMessage;
+
+  ShowOneFailure({required this.errMessage});
+}

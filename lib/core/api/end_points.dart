@@ -11,6 +11,7 @@ class EndPoints{
   static String addItem="item/create";
   static String updateProfile="profile/updateprofile";
   static String update = "item/updatedata";
+  static String showone = "item/showone";
   
   
 }

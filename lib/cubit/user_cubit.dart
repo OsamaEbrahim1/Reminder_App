@@ -13,6 +13,7 @@ import 'package:reminder_app/models/add_model.dart';
 import 'package:reminder_app/models/edit_user_model.dart';
 import 'package:reminder_app/models/forget_model.dart';
 import 'package:reminder_app/models/log_out_model.dart';
+import 'package:reminder_app/models/showone_model.dart';
 import 'package:reminder_app/models/sign_in_model.dart';
 import 'package:reminder_app/models/sign_up_model.dart';
 import 'package:reminder_app/models/update_item_model.dart';
@@ -22,13 +23,13 @@ class UserCubit extends Cubit<UserState> {
   UserCubit(this.api) : super(UserInitial());
   final ApiConsumer api;
   //Sign in Form key
-  GlobalKey<FormState> signInFormKey = GlobalKey();
+  //GlobalKey<FormState> signInFormKey = GlobalKey();
   //Sign in email
   TextEditingController signInEmail = TextEditingController();
   //Sign in password
   TextEditingController signInPassword = TextEditingController();
   //Sign Up Form key
-  GlobalKey<FormState> signUpFormKey = GlobalKey();
+  //GlobalKey<FormState> signUpFormKey = GlobalKey();
   //Profile Pic
   XFile? profilePic;
   //Sign up name
@@ -62,7 +63,7 @@ class UserCubit extends Cubit<UserState> {
   TextEditingController updateCode = TextEditingController();
   TextEditingController updateItemImage = TextEditingController();
   SignInModel? user; //هناخد متغير من الموديل اللي عملناه علشان نستقبل الريسبوند
-
+  ShowOneModel? product;
   uploadProfilePic(XFile image) {
     profilePic = image;
     emit(UploadProfilePic());
@@ -128,7 +129,7 @@ class UserCubit extends Cubit<UserState> {
       final response = await api.post(
         EndPoints.LogOut,
       );
-      emit(LogOutSuccess(message: LogOutModel.fromJson(response)));
+      emit(LogOutSuccess());
     } on ServerException catch (e) {
       emit(LogOutFailure(errmessage: e.errModel.errorMessage));
     }
@@ -150,6 +151,26 @@ class UserCubit extends Cubit<UserState> {
       emit(ForgetPassSuccess(message: successMessage));
     } on ServerException catch (e) {
       emit(ForgetPassFailure(errMessage: e.errModel.errorMessage));
+    }
+  }
+
+  updateProfile() async {
+    try {
+      emit(EditUserLoading());
+      final response = await api.post(
+        EndPoints.updateProfile,
+        isFormData: true,
+        data: {
+          ApiKey.name: updateName.text,
+          ApiKey.email: updateEmail.text,
+          ApiKey.password: UpdatePass.text,
+          ApiKey.confirm_password: UpdateConfirm_pass.text,
+          ApiKey.image: await uploadImageToAPI(profilePic!)
+        },
+      );
+      emit(EditUserSuccess(message: EditUserModel.fromJson(response)));
+    } on ServerException catch (e) {
+      emit(EditUserFailure(errMessage: e.errModel.errorMessage));
     }
   }
 
@@ -176,26 +197,6 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
-  updateProfile() async {
-    try {
-      emit(EditUserLoading());
-      final response = await api.post(
-        EndPoints.updateProfile,
-        isFormData: true,
-        data: {
-          ApiKey.name: updateName.text,
-          ApiKey.email: updateEmail.text,
-          ApiKey.password: UpdatePass.text,
-          ApiKey.confirm_password: UpdateConfirm_pass.text,
-          ApiKey.image: await uploadImageToAPI(profilePic!)
-        },
-      );
-      emit(EditUserSuccess(message: EditUserModel.fromJson(response)));
-    } on ServerException catch (e) {
-      emit(EditUserFailure(errMessage: e.errModel.errorMessage));
-    }
-  }
-
   updateItem() async {
     try {
       emit(UpdateLoading());
@@ -216,4 +217,19 @@ class UserCubit extends Cubit<UserState> {
       emit(UpdateFailure(errMessage: e.errModel.errorMessage));
     }
   }
+
+  showOne() async {
+    try {
+      emit(ShowOneLoading());
+      final response = await api.get(
+        EndPoints.showone,
+      );
+      product =
+          ShowOneModel.fromJson(response);
+      emit(ShowOneSuccess());
+    } on ServerException catch (e) {
+      emit(ShowOneFailure(errMessage: e.errModel.errorMessage));
+    }
+  }
+
 }
