@@ -10,14 +10,17 @@ import 'package:reminder_app/core/errors/exceptions.dart';
 import 'package:reminder_app/core/functions/upload_image_to_api.dart';
 import 'package:reminder_app/cubit/user_state.dart';
 import 'package:reminder_app/models/add_model.dart';
+import 'package:reminder_app/models/check_code_model.dart';
 import 'package:reminder_app/models/edit_user_model.dart';
 import 'package:reminder_app/models/forget_model.dart';
 import 'package:reminder_app/models/log_out_model.dart';
+import 'package:reminder_app/models/reset_pass_model.dart';
 import 'package:reminder_app/models/showone_model.dart';
 import 'package:reminder_app/models/sign_in_model.dart';
 import 'package:reminder_app/models/sign_up_model.dart';
 import 'package:reminder_app/models/update_item_model.dart';
 import 'package:reminder_app/models/user_model.dart';
+import 'package:reminder_app/service/service_Locator.dart';
 
 class UserCubit extends Cubit<UserState> {
   UserCubit(this.api) : super(UserInitial());
@@ -36,6 +39,12 @@ class UserCubit extends Cubit<UserState> {
   TextEditingController signUpName = TextEditingController();
   //forget password
   TextEditingController forgetPassword = TextEditingController();
+  //checck code
+  TextEditingController check_Code = TextEditingController();
+  //reset password
+  TextEditingController reset_Password = TextEditingController();
+  //reset password confirm
+  TextEditingController reset_confirm = TextEditingController();
   //Sign up email
   TextEditingController signUpEmail = TextEditingController();
   //Sign up password
@@ -63,7 +72,8 @@ class UserCubit extends Cubit<UserState> {
   TextEditingController updateCode = TextEditingController();
   TextEditingController updateItemImage = TextEditingController();
   SignInModel? user; //هناخد متغير من الموديل اللي عملناه علشان نستقبل الريسبوند
-  ShowOneModel? product;
+  
+  AddItemModel? product;
   uploadProfilePic(XFile image) {
     profilePic = image;
     emit(UploadProfilePic());
@@ -81,9 +91,9 @@ class UserCubit extends Cubit<UserState> {
       );
       user =
           SignInModel.fromJson(response); //جواه الماسيدج والتوكين اللي راجعين
-      //final decodedToken = JwtDecoder.decode(user!.token);
-      //print(decodedToken['id']);
-      CacheHelper().saveData(key: ApiKey.token, value: user!.token);
+      getIt<CacheHelper>().saveData(key: ApiKey.token, value: user!.token);
+            //final decodedToken = JwtDecoder.decode(user!.token);
+//print(decodedToken['id']);
       emit(SignInSuccess());
     } on ServerException catch (e) {
       emit(SignInFailure(errmessage: e.errModel.errorMessage));
@@ -145,12 +155,45 @@ class UserCubit extends Cubit<UserState> {
         },
       );
       final forgetModel = ForgetModel.fromJson(response);
-      final successMessage = forgetModel.success
+      final successMessage = forgetModel.status
           ? 'Password reset successful'
           : 'Password reset failed';
       emit(ForgetPassSuccess(message: successMessage));
     } on ServerException catch (e) {
       emit(ForgetPassFailure(errMessage: e.errModel.errorMessage));
+    }
+  }
+
+  checkCode() async {
+    try {
+      emit(CheckCodeLoading());
+      final response = await api.post(
+        EndPoints.checkCode,
+        data: {
+          ApiKey.email: check_Code.text,
+        },
+      );
+      
+      emit(CheckCodeSuccess());
+    } on ServerException catch (e) {
+      emit(CheckCodeFailure(errMessage: e.errModel.errorMessage));
+    }
+  }
+
+  resetPass() async{
+    try {
+      emit(ResetPasswordLoading());
+      final response = await api.post(
+        EndPoints.resetPassword,
+        data: {
+          ApiKey.password: reset_Password.text,
+          //ApiKey.confirm_password: reset_confirm.text,
+        },
+      );
+      final resetModel = ResetPassModel.fromJson(response);
+      emit(ResetPasswordSuccess(message: resetModel.message));
+    } on ServerException catch (e) {
+      emit(ResetPasswordFailure(errMessage: e.errModel.errorMessage));
     }
   }
 
@@ -191,6 +234,8 @@ class UserCubit extends Cubit<UserState> {
           ApiKey.item_image: await uploadImageToAPI(profilePic!)
         },
       );
+      product = AddItemModel.fromJson(response);
+      getIt<CacheHelper>().saveData(key: ApiKey.id, value: product!.id);
       emit(AddItemSuccess(message: AddItemModel.fromJson(response)));
     } on ServerException catch (e) {
       emit(AddItemFailure(errMessage: e.errModel.errorMessage));
@@ -201,7 +246,7 @@ class UserCubit extends Cubit<UserState> {
     try {
       emit(UpdateLoading());
       final response = await api.post(
-        EndPoints.update,
+        EndPoints.updatedata(CacheHelper().getData(key: ApiKey.id)),
         isFormData: true,
         data: {
           ApiKey.code = updateCode.text,
@@ -222,14 +267,23 @@ class UserCubit extends Cubit<UserState> {
     try {
       emit(ShowOneLoading());
       final response = await api.get(
-        EndPoints.showone,
+        EndPoints.showone(CacheHelper().getData(key: ApiKey.id)),
       );
-      product =
-          ShowOneModel.fromJson(response);
       emit(ShowOneSuccess());
     } on ServerException catch (e) {
       emit(ShowOneFailure(errMessage: e.errModel.errorMessage));
     }
   }
 
+  delete() async {
+    try {
+      emit(DeleteLoading());
+  final response = await api.delete(
+    EndPoints.delete(CacheHelper().getData(key: ApiKey.id)),
+  );
+  emit(DeleteSuccess());
+} on ServerException catch (e) {
+  emit(DeleteFailure(errMessage: e.errModel.errorMessage));
+}
+  }
 }

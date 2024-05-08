@@ -22,13 +22,13 @@ class ShowOneModel {
 
   factory ShowOneModel.fromJson(Map<String, dynamic> jsonData) {
     return ShowOneModel(
-        title: jsonData[ApiKey.title],
-        description: jsonData[ApiKey.description],
-        item_image: jsonData[ApiKey.item_image],
-        pro_date: jsonData[ApiKey.pro_date],
-        exp_date: jsonData[ApiKey.exp_date],
-        start_reminder: jsonData[ApiKey.start_reminder],
-        code: jsonData[ApiKey.code],
-        category_id: jsonData[ApiKey.category_id]);
+        title: jsonData['data'][ApiKey.title],
+        description: jsonData['data'][ApiKey.description],
+        item_image: jsonData['data'][ApiKey.item_image],
+        pro_date: jsonData['data'][ApiKey.pro_date],
+        exp_date: jsonData['data'][ApiKey.exp_date],
+        start_reminder: jsonData['data'][ApiKey.start_reminder],
+        code: jsonData['data'][ApiKey.code],
+        category_id: jsonData['data'][ApiKey.category_id]);
   }
 }

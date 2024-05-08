@@ -127,3 +127,37 @@ final class ShowOneFailure extends UserState {
 
   ShowOneFailure({required this.errMessage});
 }
+
+
+//delete product
+final class DeleteSuccess extends UserState {}
+
+final class DeleteLoading extends UserState {}
+
+final class DeleteFailure extends UserState {
+  final String errMessage;
+
+  DeleteFailure({required this.errMessage});
+}
+
+
+//check code
+final class CheckCodeSuccess extends UserState {}
+final class CheckCodeLoading extends UserState {}
+final class CheckCodeFailure extends UserState {
+  final String errMessage;
+
+  CheckCodeFailure({required this.errMessage});
+}
+
+//reset Password
+final class ResetPasswordSuccess extends UserState {
+  final String message;
+
+    ResetPasswordSuccess({required this.message});
+}
+final class ResetPasswordLoading extends UserState {}
+final class ResetPasswordFailure extends UserState {
+  final String errMessage;
+  ResetPasswordFailure({required this.errMessage});
+}

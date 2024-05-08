@@ -7,11 +7,27 @@ class EndPoints{
   // }
   static String Profile="profile/ProfileUser";
   static String LogOut="user/Logout";
-  static String forgetpassword="forgetPassword";
+  static String forgetpassword="emailExists";
+  static String checkCode="checkCode";
+  static String resetPassword="resetPassword";
+  static String resendCode="sendCode";
   static String addItem="item/create";
   static String updateProfile="profile/updateprofile";
-  static String update = "item/updatedata";
-  static String showone = "item/showone";
+  static String alldata="item/alldata";
+  static String allcategory="item/allcategory";
+  static String expire="item/expire";
+  static String soonexpire="item/soonexpire";
+  static String updatedata(id) {
+    return "updatedata/$id"; 
+  }
+  static String showone(id){
+    return "item/showone/$id";
+  } 
+  static String delete(id){
+    return "item/delete/$id";
+  }
+
+  
   
   
 }
